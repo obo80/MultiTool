@@ -154,11 +154,11 @@ namespace MultiTool.ViewModels
 
         #region SearchAndReplace
 
-        public void Search(string searchText, string replaceText, bool srRegEx, bool srWildcards, bool srExtended,
-                bool srFileContext, bool srFileName, bool srFolderName, bool srCaseSensitive, bool srReMultiline, bool srWholeWords)
+        public void Search(string searchText, string replaceText, bool srRegEx, 
+                bool srFileContext, bool srFileName, bool srFolderName, bool srCaseSensitive, bool srReMultiline)
         {
-            SearchAndReplace SR = new SearchAndReplace(srRegEx, srWildcards, srExtended, srFileContext, srFileName,
-               srFolderName, srCaseSensitive, srReMultiline, srWholeWords);
+            SearchAndReplace SR = new SearchAndReplace(srRegEx, srFileContext, srFileName,
+               srFolderName, srCaseSensitive, srReMultiline);
             
             foreach (string filePath in _FilesList1)
             {
@@ -167,11 +167,11 @@ namespace MultiTool.ViewModels
 
         }
 
-        public void Replace(string searchText, string replaceText, bool srRegEx, bool srWildcards, bool srExtended,
-                bool srFileContext, bool srFileName, bool srFolderName, bool srCaseSensitive, bool srReMultiline, bool srWholeWords)
+        public void Replace(string searchText, string replaceText, bool srRegEx,
+                bool srFileContext, bool srFileName, bool srFolderName, bool srCaseSensitive, bool srReMultiline)
         {
-            SearchAndReplace SR = new SearchAndReplace(srRegEx, srWildcards, srExtended,srFileContext, srFileName, 
-                srFolderName, srCaseSensitive, srReMultiline, srWholeWords);
+            SearchAndReplace SR = new SearchAndReplace(srRegEx, srFileContext, srFileName, 
+                srFolderName, srCaseSensitive, srReMultiline);
             
             foreach (string filePath in _FilesList1)
             {

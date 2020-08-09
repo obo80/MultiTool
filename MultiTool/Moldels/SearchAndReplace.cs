@@ -10,33 +10,33 @@ namespace MultiTool.Moldels
     {
         //private string SRfilePath { get; set; }
         private bool RegEx { get; set; }
-        private bool Wildcards { get; set; }     //for MS Word
-        private bool ExtendedMode { get; set; }  // /r/n/t etc...
+        //private bool Wildcards { get; set; }     //for MS Word
+        //private bool ExtendedMode { get; set; }  // /r/n/t etc...
         private bool FileContent { get; set; }
         private bool FileName { get; set; }
         private bool FolderName { get; set; }
         private bool CaseSensitive { get; set; }
         private bool RegExMultiline { get; set; }
-        private bool WholeWordsOnly { get; set; }
+        //private bool WholeWordsOnly { get; set; }
 
 
         public SearchAndReplace()
         {
 
         }
-        public SearchAndReplace(bool regEx, bool wildcard, bool extMode, bool fileContent, bool fileName, 
-            bool folderName, bool caseSensitive, bool reMultiline, bool wholeWordsOnly)
+        public SearchAndReplace(bool regEx, bool fileContent, bool fileName, 
+            bool folderName, bool caseSensitive, bool reMultiline)
         {
             
             this.RegEx = regEx;
-            this.Wildcards = wildcard;
-            this.ExtendedMode = extMode;
+            //this.Wildcards = wildcard;
+            //this.ExtendedMode = extMode;
             this.FileContent = fileContent;
             this.FileName = fileName;
             this.FolderName = folderName;
             this.CaseSensitive = caseSensitive;
             this.RegExMultiline = reMultiline;
-            this.WholeWordsOnly = wholeWordsOnly;
+            //this.WholeWordsOnly = wholeWordsOnly;
         }
 
         public void Search(string filePath, string searchText) 
@@ -87,14 +87,6 @@ namespace MultiTool.Moldels
             {
                 workingFileContent = ReplaceRegEx(workingFileContent, searchText, replaceText, this.CaseSensitive, this.RegExMultiline);
             }
-            if (this.ExtendedMode)
-            {
-                workingFileContent = ReplaceExtendedMode(workingFileContent, searchText, replaceText);
-            }
-            if (this.Wildcards)
-            {
-                workingFileContent = ReplaceWildcards(workingFileContent, searchText, replaceText);
-            }
             else
             {
                 workingFileContent = ReplaceAboslute(workingFileContent, searchText, replaceText, this.CaseSensitive);
@@ -125,10 +117,10 @@ namespace MultiTool.Moldels
                 workingString = Regex.Replace(fileContent, searchText, replaceText, RegexOptions.Multiline & RegexOptions.IgnoreCase);
 
             else if (!regExMultiline && !caseSensitive)
-                workingString = Regex.Replace(fileContent, searchText, replaceText, RegexOptions.Singleline & RegexOptions.IgnoreCase);
+                workingString = Regex.Replace(fileContent, searchText, replaceText, RegexOptions.IgnoreCase);
 
             else  //!regExMultiline && caseSensitive
-                workingString = Regex.Replace(fileContent, searchText, replaceText, RegexOptions.Singleline);
+                workingString = Regex.Replace(fileContent, searchText, replaceText, RegexOptions.None);
 
             return workingString;
         }

@@ -135,8 +135,8 @@ namespace MultiTool
         {
             bool srAbsolute = (bool)this.SR_aboslute_rbox.IsChecked;
             bool srRegEx = (bool)this.SR_RegEx_rbox.IsChecked;
-            bool srWildcards = (bool)this.SR_wildcards_rbox.IsChecked;
-            bool srExtended = (bool)this.SR_extended_rbox.IsChecked;
+            //bool srWildcards = (bool)this.SR_wildcards_rbox.IsChecked;
+            //bool srExtended = (bool)this.SR_extended_rbox.IsChecked;
 
             bool srFileContext = (bool)this.SR_FileContent_rbox.IsChecked;
             bool srFileName = (bool)this.SR_FileNames_rbox.IsChecked;
@@ -144,14 +144,13 @@ namespace MultiTool
 
             bool srReMultiline = (bool)this.SR_RegExMultiline_cbox.IsChecked;
             bool srCaseSensitive = (bool)this.CaseSensitive_cbox.IsChecked;
-            bool srWholeWords = (bool)this.WholeWordsOnly_cbox.IsChecked;
+            //bool srWholeWords = (bool)this.WholeWordsOnly_cbox.IsChecked;
 
             string searchText = SearchTbx.Text;
             string replaceText = ReplaceTbx.Text;
 
 
-            MainWindow_VM.Search(searchText, replaceText, srRegEx, srWildcards, srExtended,
-                srFileContext, srFileName, srFolderName, srCaseSensitive, srReMultiline, srWholeWords);
+            MainWindow_VM.Search(searchText, replaceText, srRegEx, srFileContext, srFileName, srFolderName, srCaseSensitive, srReMultiline);
 
 
 
@@ -161,8 +160,8 @@ namespace MultiTool
         {
             bool srAbsolute = (bool)this.SR_aboslute_rbox.IsChecked;
             bool srRegEx = (bool)this.SR_RegEx_rbox.IsChecked;
-            bool srWildcards = (bool)this.SR_wildcards_rbox.IsChecked;
-            bool srExtended = (bool)this.SR_extended_rbox.IsChecked;
+            //bool srWildcards = (bool)this.SR_wildcards_rbox.IsChecked;
+            //bool srExtended = (bool)this.SR_extended_rbox.IsChecked;
 
             bool srFileContext = (bool)this.SR_FileContent_rbox.IsChecked;
             bool srFileName = (bool)this.SR_FileNames_rbox.IsChecked;
@@ -170,15 +169,27 @@ namespace MultiTool
 
             bool srReMultiline = (bool)this.SR_RegExMultiline_cbox.IsChecked;
             bool srCaseSensitive = (bool)this.CaseSensitive_cbox.IsChecked;
-            bool srWholeWords = (bool)this.WholeWordsOnly_cbox.IsChecked;
+            //bool srWholeWords = (bool)this.WholeWordsOnly_cbox.IsChecked;
 
             string searchText = SearchTbx.Text;
             string replaceText = ReplaceTbx.Text;
 
-            MainWindow_VM.Replace(searchText, replaceText, srRegEx, srWildcards, srExtended,
-                srFileContext, srFileName, srFolderName, srCaseSensitive, srReMultiline, srWholeWords);
+            MainWindow_VM.Replace(searchText, replaceText, srRegEx, 
+                srFileContext, srFileName, srFolderName, srCaseSensitive, srReMultiline);
         }
 
-
+        private void SR_Preview_cbox_Click(object sender, RoutedEventArgs e)
+        {
+            if (SR_Preview_cbox.IsChecked == true)
+            {
+                Preview_rtbox.Visibility = Visibility.Visible;
+                ListView2.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                Preview_rtbox.Visibility = Visibility.Hidden;
+                ListView2.Visibility = Visibility.Visible;
+            }
+        }
     }
 }

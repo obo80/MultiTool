@@ -46,8 +46,7 @@
                             <StackPanel Orientation="Vertical" Margin="4"  HorizontalAlignment="Center" VerticalAlignment="Top">
                                 <RadioButton Content="Absolute" Name="SR_aboslute_rbox" IsThreeState="False" IsChecked="True"/>
                                 <RadioButton Content="Reegular Expression" Name="SR_RegEx_rbox" IsThreeState="False"/>
-                                <RadioButton Content="Wildcards" Name="SR_wildcards_rbox" IsThreeState="False" IsEnabled="False"/>
-                                <RadioButton Content="Estended (\n\r\t...)" Name="SR_extended_rbox" IsThreeState="False" IsEnabled="False"/>
+                                <CheckBox Content="Preview" x:Name="SR_Preview_cbox" Click="SR_Preview_cbox_Click"/>
 
                             </StackPanel>                    
                             <StackPanel Orientation="Vertical" Margin="4" HorizontalAlignment="Center" VerticalAlignment="Top">
@@ -58,7 +57,6 @@
                             <StackPanel Orientation="Vertical" Margin="4" HorizontalAlignment="Center" VerticalAlignment="Top">
                                 <CheckBox Content="RE multiline" Name="SR_RegExMultiline_cbox"/>
                                 <CheckBox Content="Case sensitive" Name="CaseSensitive_cbox"/>
-                                <CheckBox Content="Whole words only" Name="WholeWordsOnly_cbox" IsEnabled="False"/>
                             </StackPanel>               
                         </StackPanel>
 
@@ -154,6 +152,7 @@
                     <ListView Style="{StaticResource ListViewStyle1}" ItemsSource="{Binding FilesList2, Mode=TwoWay}" 
                               Grid.Row="1" x:Name="ListView2" BorderThickness="1" BorderBrush="Black" 
                               ToolTip="Drag and drop files here:" Drop="ListView2_Drop"/>
+                    <RichTextBox Grid.Row="1" Name="Preview_rtbox" Visibility ="Hidden" IsReadOnly="True"/> 
                 </Grid>
 
             </Grid>
