@@ -1,6 +1,6 @@
-﻿using MultiTool.Moldels;
-using MultiTool.ViewModels;
+﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -13,12 +13,15 @@ namespace MultiTool
     {
         ViewModels.MainWindowViewModel MainWindow_VM;
 
+
+
         public MainWindow()
         {
             InitializeComponent();
             MainWindow_VM = new ViewModels.MainWindowViewModel();
             DataContext = MainWindow_VM;
             UpdateAllStatus();
+
 
         }
         #region List View methods
@@ -96,7 +99,7 @@ namespace MultiTool
         //{
 
         //}
-
+        #region UserInterfaceBehavior
         private void RemoveOnlySelectedExtensionList2Btn_Click(object sender, RoutedEventArgs e)
         {
             string selectedExt = ExtensionListCmbBox2.Text;
@@ -131,6 +134,27 @@ namespace MultiTool
             CounterList2Tbx.Text = ListView2.Items.Count.ToString() + "file(s)";
         }
 
+        private void SR_Preview_cbox_Click(object sender, RoutedEventArgs e)
+        {
+            if (SR_Preview_cbox.IsChecked == true)
+            {
+                Preview_rtbox.Visibility = Visibility.Visible;
+                ListView2.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                Preview_rtbox.Visibility = Visibility.Hidden;
+                ListView2.Visibility = Visibility.Visible;
+            }
+        }
+
+        #endregion
+
+
+
+        #region Search And Replace Methods
+
+
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
             bool srAbsolute = (bool)this.SR_aboslute_rbox.IsChecked;
@@ -150,13 +174,14 @@ namespace MultiTool
             string replaceText = ReplaceTbx.Text;
 
 
-            MainWindow_VM.Search(searchText, replaceText, srRegEx, srFileContext, srFileName, srFolderName, srCaseSensitive, srReMultiline);
-
+            //MainWindow_VM.Search(searchText, replaceText, srRegEx, srFileContext, srFileName, srFolderName, srCaseSensitive, srReMultiline);
+            string data = AppDomain.CurrentDomain.BaseDirectory;
+            MessageBox.Show(data);
 
 
         }
 
-        private void RepladeBtn_Click(object sender, RoutedEventArgs e)
+        private void ReplaceBtn_Click(object sender, RoutedEventArgs e)
         {
             bool srAbsolute = (bool)this.SR_aboslute_rbox.IsChecked;
             bool srRegEx = (bool)this.SR_RegEx_rbox.IsChecked;
@@ -174,22 +199,10 @@ namespace MultiTool
             string searchText = SearchTbx.Text;
             string replaceText = ReplaceTbx.Text;
 
-            MainWindow_VM.Replace(searchText, replaceText, srRegEx, 
+            MainWindow_VM.Replace(searchText, replaceText, srRegEx,
                 srFileContext, srFileName, srFolderName, srCaseSensitive, srReMultiline);
         }
 
-        private void SR_Preview_cbox_Click(object sender, RoutedEventArgs e)
-        {
-            if (SR_Preview_cbox.IsChecked == true)
-            {
-                Preview_rtbox.Visibility = Visibility.Visible;
-                ListView2.Visibility = Visibility.Hidden;
-            }
-            else
-            {
-                Preview_rtbox.Visibility = Visibility.Hidden;
-                ListView2.Visibility = Visibility.Visible;
-            }
-        }
+        #endregion
     }
 }

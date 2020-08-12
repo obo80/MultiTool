@@ -35,8 +35,8 @@
                                 <TextBox x:Name="SearchTbx" Width="250" Margin="5,3, 3, 3" />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="3">
-                                <Button x:Name="RepladeBtn" Width="60"  Content="Replace" ToolTip="Replace all" Margin="3,3,3,3" Background="PaleVioletRed" 
-                                        Click="RepladeBtn_Click"/>
+                                <Button x:Name="ReplaceBtn" Width="60"  Content="Replace" ToolTip="Replace all" Margin="3,3,3,3" Background="PaleVioletRed" 
+                                        Click="ReplaceBtn_Click"/>
                                 <TextBox x:Name="ReplaceTbx" Width="250"  Margin="5,3, 3, 3" />
                             </StackPanel>
                         </StackPanel>
@@ -161,11 +161,11 @@
             <GridSplitter Grid.Column="1" ResizeDirection="Columns" BorderThickness="10"/>
             <StackPanel Grid.Column="2" Orientation="Vertical">
                 <TextBlock Text="Logs path:" Background="BlanchedAlmond"/>
-                <ListView x:Name="LogsListView" ToolTip="Not implemented yet - not working">
-                    <ListBoxItem Content="C:logi/log1.txt"/>
+                <ListView x:Name="LogsListView" ToolTip="Not implemented yet - not working" ItemsSource="{Binding LogList}">
+                    <!--<ListBoxItem Content="C:logi/log1.txt"/>
                     <ListBoxItem Content="C:logi/log2.txt"/>
                     <ListBoxItem Content="C:logi/log3.txt"/>
-                    <ListBoxItem Content="C:logi/log4.txt"/>
+                    <ListBoxItem Content="C:logi/log4.txt"/>-->
                 </ListView>
             </StackPanel>
         </Grid>

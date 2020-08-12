@@ -1,18 +1,20 @@
-﻿using System;
+﻿using MultiTool.Moldels;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using MultiTool.Moldels;
 
 namespace MultiTool.ViewModels
 {
     class MainWindowViewModel
     {
+
+        #region List declaration
         private static ObservableCollection<string> _FilesList1 { get; set; }
         private static ObservableCollection<string> _FilesList2 { get; set; }
+
         public ObservableCollection<string> FilesList1
         {
             get { return _FilesList1; }
@@ -33,18 +35,28 @@ namespace MultiTool.ViewModels
         public ObservableCollection<string> ExtensionList1 { get; set; }
         public ObservableCollection<string> ExtensionList2 { get; set; }
 
-        private ObservableCollection<string> Extension_list { get; set; }
-        
+        //private ObservableCollection<string> Extension_list { get; set; }
 
+        public ObservableCollection<string> LogList { get; set; }
+        #endregion
+
+
+        #region Constructor
         public MainWindowViewModel()
         {
             FilesList1 = new ObservableCollection<string>();
             FilesList2 = new ObservableCollection<string>();
+
             ExtensionList1 = new ObservableCollection<string>();
             ExtensionList2 = new ObservableCollection<string>();
-            //Test_adding_items();
-            
+
+            LogList = new ObservableCollection<string>();
+            RefreshLogList();
+
         }
+        #endregion
+
+        #region FileList operations
 
         public void ClearList1()
         {
@@ -56,8 +68,6 @@ namespace MultiTool.ViewModels
             FilesList2.Clear();
             RefreshExtensionLists();
         }
-
-
         public void AddFilesToList(string[] AddedItemToList, ObservableCollection<string> FileListX)
         {
             foreach (string ItemToAdd in AddedItemToList)
@@ -84,6 +94,21 @@ namespace MultiTool.ViewModels
             RefreshExtensionLists();
         }
 
+        public void RemoveItemsFromFileList(List<string> ItemsToRemove, ObservableCollection<string> FileListX)
+        {
+            foreach (var item in ItemsToRemove)
+            {
+                FileListX.Remove(item);
+            }
+            RefreshExtensionLists();
+        }
+
+
+
+        #endregion
+
+        #region Extension filtering
+
         public void RemoveAllDependingExtension(string selectedExt, ObservableCollection<string> FileListX, bool isSelected)
         {
             try
@@ -101,7 +126,7 @@ namespace MultiTool.ViewModels
             }
             catch (System.Exception se)
             {
-                MessageBox.Show(se.Message,"Rremoving files by extension error");
+                MessageBox.Show(se.Message, "Rremoving files by extension error");
             }
             RefreshExtensionLists();
         }
@@ -130,36 +155,46 @@ namespace MultiTool.ViewModels
                 MessageBox.Show(se.Message, "Rrefresing extension error");
             }
         }
+        #endregion
 
+        #region Log operations
 
-        public void RemoveItemsFromFileList(List<string> ItemsToRemove, ObservableCollection<string> FileListX)
+        public void RefreshLogList()
         {
-            foreach (var item in ItemsToRemove)
+            LogList.Clear();
+            try
             {
-                FileListX.Remove(item);
+                string Logs_path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs");
+                if (!Directory.Exists(Logs_path))
+                    Directory.CreateDirectory(Logs_path);
+                var LogPathsList = Directory.GetFiles(Logs_path);
+
+                foreach (var logFile in LogPathsList)
+                    LogList.Add(Path.GetFileName(logFile));
+
+
+
             }
-            RefreshExtensionLists();
+            catch (System.Exception se)
+            {
+                MessageBox.Show(se.Message, "Rrefresing log list error");
+            }
         }
 
+        #endregion
 
-        //public void AddFilesToList_1(string[] AddedListOfFiles)
-        //{
-        //    AddFilesToList(AddedListOfFiles, FilesList1);
-        //}
-        //public void AddFilesToList_2(string[] AddedListOfFiles)
-        //{
-        //    AddFilesToList(AddedListOfFiles, FilesList2);
+
         //}
 
 
         #region SearchAndReplace
 
-        public void Search(string searchText, string replaceText, bool srRegEx, 
-                bool srFileContext, bool srFileName, bool srFolderName, bool srCaseSensitive, bool srReMultiline)
+        public void Search(string searchText, string replaceText, bool srRegEx,
+                    bool srFileContext, bool srFileName, bool srFolderName, bool srCaseSensitive, bool srReMultiline)
         {
             SearchAndReplace SR = new SearchAndReplace(srRegEx, srFileContext, srFileName,
                srFolderName, srCaseSensitive, srReMultiline);
-            
+
             foreach (string filePath in _FilesList1)
             {
                 SR.Search(filePath, searchText);
@@ -170,9 +205,9 @@ namespace MultiTool.ViewModels
         public void Replace(string searchText, string replaceText, bool srRegEx,
                 bool srFileContext, bool srFileName, bool srFolderName, bool srCaseSensitive, bool srReMultiline)
         {
-            SearchAndReplace SR = new SearchAndReplace(srRegEx, srFileContext, srFileName, 
+            SearchAndReplace SR = new SearchAndReplace(srRegEx, srFileContext, srFileName,
                 srFolderName, srCaseSensitive, srReMultiline);
-            
+
             foreach (string filePath in _FilesList1)
             {
                 SR.Replace(filePath, searchText, replaceText);
@@ -186,46 +221,46 @@ namespace MultiTool.ViewModels
 
 
 
-        private void Test_adding_items()
-        {
+        //private void Test_adding_items()
+        //{
 
-            FilesList1.Add("file1 path bla bla bla");
-            FilesList1.Add("file2 path bla bla bla");
-            FilesList1.Add("file3 path bla bla bla");
-            FilesList1.Add("file4 path bla bla bla");
-            FilesList1.Add("file5 path bla bla bla");
-            FilesList1.Add("file6 path bla bla bla");
-            FilesList2.Add("file1 path kra kra kra");
-            FilesList2.Add("file2 path kra kra kra");
-            FilesList2.Add("file3 path kra kra kra");
-            FilesList2.Add("file4 path kra kra kra");
-            FilesList2.Add("file5 path kra kra kra");
-            FilesList2.Add("file6 path kra kra kra");
-            FilesList2.Add("file1 path kra kra kra");
-            FilesList2.Add("file2 path kra kra kra");
-            FilesList2.Add("file3 path kra kra kra");
-            FilesList2.Add("file4 path kra kra kra");
-            FilesList2.Add("file5 path kra kra kra");
-            FilesList2.Add("file6 path kra kra kra");
-            FilesList2.Add("file1 path kra kra kra");
-            FilesList2.Add("file2 path kra kra kra");
-            FilesList2.Add("file3 path kra kra kra");
-            FilesList2.Add("file4 path kra kra kra");
-            FilesList2.Add("file5 path kra kra kra");
-            FilesList2.Add("file6 path kra kra kra");
-            FilesList2.Add("file1 path kra kra kra");
-            FilesList2.Add("file2 path kra kra kra");
-            FilesList2.Add("file3 path kra kra kra");
-            FilesList2.Add("file4 path kra kra kra");
-            FilesList2.Add("file5 path kra kra kra");
-            FilesList2.Add("file6 path kra kra kra");
-            FilesList2.Add("file1 path kra kra kra");
-            FilesList2.Add("file2 path kra kra kra");
-            FilesList2.Add("file3 path kra kra kra");
-            FilesList2.Add("file4 path kra kra kra");
-            FilesList2.Add("file5 path kra kra kra");
-            FilesList2.Add("file6 path kra kra kra");
-        }
+        //    FilesList1.Add("file1 path bla bla bla");
+        //    FilesList1.Add("file2 path bla bla bla");
+        //    FilesList1.Add("file3 path bla bla bla");
+        //    FilesList1.Add("file4 path bla bla bla");
+        //    FilesList1.Add("file5 path bla bla bla");
+        //    FilesList1.Add("file6 path bla bla bla");
+        //    FilesList2.Add("file1 path kra kra kra");
+        //    FilesList2.Add("file2 path kra kra kra");
+        //    FilesList2.Add("file3 path kra kra kra");
+        //    FilesList2.Add("file4 path kra kra kra");
+        //    FilesList2.Add("file5 path kra kra kra");
+        //    FilesList2.Add("file6 path kra kra kra");
+        //    FilesList2.Add("file1 path kra kra kra");
+        //    FilesList2.Add("file2 path kra kra kra");
+        //    FilesList2.Add("file3 path kra kra kra");
+        //    FilesList2.Add("file4 path kra kra kra");
+        //    FilesList2.Add("file5 path kra kra kra");
+        //    FilesList2.Add("file6 path kra kra kra");
+        //    FilesList2.Add("file1 path kra kra kra");
+        //    FilesList2.Add("file2 path kra kra kra");
+        //    FilesList2.Add("file3 path kra kra kra");
+        //    FilesList2.Add("file4 path kra kra kra");
+        //    FilesList2.Add("file5 path kra kra kra");
+        //    FilesList2.Add("file6 path kra kra kra");
+        //    FilesList2.Add("file1 path kra kra kra");
+        //    FilesList2.Add("file2 path kra kra kra");
+        //    FilesList2.Add("file3 path kra kra kra");
+        //    FilesList2.Add("file4 path kra kra kra");
+        //    FilesList2.Add("file5 path kra kra kra");
+        //    FilesList2.Add("file6 path kra kra kra");
+        //    FilesList2.Add("file1 path kra kra kra");
+        //    FilesList2.Add("file2 path kra kra kra");
+        //    FilesList2.Add("file3 path kra kra kra");
+        //    FilesList2.Add("file4 path kra kra kra");
+        //    FilesList2.Add("file5 path kra kra kra");
+        //    FilesList2.Add("file6 path kra kra kra");
+        //}
     }
 
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Specialized;
 using System.IO;
 using System.Text.RegularExpressions;
 
@@ -24,10 +23,10 @@ namespace MultiTool.Moldels
         {
 
         }
-        public SearchAndReplace(bool regEx, bool fileContent, bool fileName, 
+        public SearchAndReplace(bool regEx, bool fileContent, bool fileName,
             bool folderName, bool caseSensitive, bool reMultiline)
         {
-            
+
             this.RegEx = regEx;
             //this.Wildcards = wildcard;
             //this.ExtendedMode = extMode;
@@ -39,7 +38,7 @@ namespace MultiTool.Moldels
             //this.WholeWordsOnly = wholeWordsOnly;
         }
 
-        public void Search(string filePath, string searchText) 
+        public void Search(string filePath, string searchText)
         {
 
         }
@@ -112,7 +111,7 @@ namespace MultiTool.Moldels
             string workingString = fileContent;
             if (regExMultiline && caseSensitive)
                 workingString = Regex.Replace(fileContent, searchText, replaceText, RegexOptions.Multiline);
-            
+
             else if (regExMultiline && !caseSensitive)
                 workingString = Regex.Replace(fileContent, searchText, replaceText, RegexOptions.Multiline & RegexOptions.IgnoreCase);
 
@@ -138,7 +137,7 @@ namespace MultiTool.Moldels
             string workingString = fileContent;
             if (!caseSensitive)
                 workingString = workingString.Replace(searchText, replaceText);
-            
+
             else
                 workingString = Regex.Replace(fileContent, searchText, replaceText, RegexOptions.IgnoreCase);
 
