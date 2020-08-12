@@ -164,7 +164,8 @@ namespace MultiTool.ViewModels
             LogList.Clear();
             try
             {
-                string Logs_path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs");
+                //string Logs_path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs");
+                string Logs_path = Path.Combine(Environment.CurrentDirectory, "logs");
                 if (!Directory.Exists(Logs_path))
                     Directory.CreateDirectory(Logs_path);
                 var LogPathsList = Directory.GetFiles(Logs_path);

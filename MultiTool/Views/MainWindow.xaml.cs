@@ -176,6 +176,7 @@ namespace MultiTool
 
             //MainWindow_VM.Search(searchText, replaceText, srRegEx, srFileContext, srFileName, srFolderName, srCaseSensitive, srReMultiline);
             string data = AppDomain.CurrentDomain.BaseDirectory;
+            data = Environment.CurrentDirectory;
             MessageBox.Show(data);
 
 
