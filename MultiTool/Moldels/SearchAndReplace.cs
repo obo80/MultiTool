@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MultiTool.ViewModels;
+using System;
 using System.IO;
 using System.Text.RegularExpressions;
 
@@ -7,64 +8,59 @@ namespace MultiTool.Moldels
 {
     class SearchAndReplace
     {
-        //private string SRfilePath { get; set; }
         private bool RegEx { get; set; }
-        //private bool Wildcards { get; set; }     //for MS Word
-        //private bool ExtendedMode { get; set; }  // /r/n/t etc...
         private bool FileContent { get; set; }
         private bool FileName { get; set; }
         private bool FolderName { get; set; }
         private bool CaseSensitive { get; set; }
         private bool RegExMultiline { get; set; }
-        //private bool WholeWordsOnly { get; set; }
 
 
-        public SearchAndReplace()
-        {
 
-        }
+        //public SearchAndReplace()
+        //{
+
+        //}
         public SearchAndReplace(bool regEx, bool fileContent, bool fileName,
             bool folderName, bool caseSensitive, bool reMultiline)
         {
 
             this.RegEx = regEx;
-            //this.Wildcards = wildcard;
-            //this.ExtendedMode = extMode;
             this.FileContent = fileContent;
             this.FileName = fileName;
             this.FolderName = folderName;
             this.CaseSensitive = caseSensitive;
             this.RegExMultiline = reMultiline;
-            //this.WholeWordsOnly = wholeWordsOnly;
+            
         }
 
-        public void Search(string filePath, string searchText)
+        public void Search(string filePath, string searchText, ResultInfo resultInfo)
         {
 
         }
 
-        public void Replace(string filePath, string searchText, string replaceText)
+        public void Replace(string filePath, string searchText, string replaceText, ResultInfo resultInfo)
         {
             if (FileContent)
             {
-                SearchReplaceFileContent(filePath, searchText, replaceText);
+                SearchReplaceFileContent(filePath, searchText, replaceText, resultInfo);
             }
             else if (FileName)
             {
-                SearchReplaceFileName(filePath, searchText, replaceText);
+                SearchReplaceFileName(filePath, searchText, replaceText, resultInfo);
             }
             else if (FolderName)
             {
-                SearchReplaceFolderName(filePath, searchText, replaceText);
+                SearchReplaceFolderName(filePath, searchText, replaceText, resultInfo);
             }
         }
 
-        private void SearchReplaceFileName(string filePath, string searchText, string replaceText)
+        private void SearchReplaceFileName(string filePath, string searchText, string replaceText, ResultInfo resultInfo)
         {
             throw new NotImplementedException();
         }
 
-        private void SearchReplaceFolderName(string filePath, string searchText, string replaceText)
+        private void SearchReplaceFolderName(string filePath, string searchText, string replaceText, ResultInfo resultInfo)
         {
             throw new NotImplementedException();
         }
@@ -76,7 +72,7 @@ namespace MultiTool.Moldels
         /// <param name="filePath"></param>
         /// <param name="searchText"></param>
         /// <param name="replaceText"></param>
-        private void SearchReplaceFileContent(string filePath, string searchText, string replaceText)
+        private void SearchReplaceFileContent(string filePath, string searchText, string replaceText, ResultInfo resultInfo)
         {
             StreamReader SR = new StreamReader(filePath);
             string workingFileContent = SR.ReadToEnd();
@@ -84,11 +80,11 @@ namespace MultiTool.Moldels
 
             if (this.RegEx)
             {
-                workingFileContent = ReplaceRegEx(workingFileContent, searchText, replaceText, this.CaseSensitive, this.RegExMultiline);
+                workingFileContent = ReplaceRegEx(workingFileContent, searchText, replaceText, this.CaseSensitive, this.RegExMultiline, resultInfo);
             }
             else
             {
-                workingFileContent = ReplaceAboslute(workingFileContent, searchText, replaceText, this.CaseSensitive);
+                workingFileContent = ReplaceAboslute(workingFileContent, searchText, replaceText, this.CaseSensitive, resultInfo);
             }
 
             StreamWriter SW = new StreamWriter(filePath);
@@ -96,21 +92,22 @@ namespace MultiTool.Moldels
             SW.Close();
         }
 
-        private string ReplaceWildcards(string fileContent, string searchText, string replaceText)
-        {
-            throw new NotImplementedException();
-        }
+        //private string ReplaceWildcards(string fileContent, string searchText, string replaceText)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        private string ReplaceExtendedMode(string fileContent, string searchText, string replaceText)
-        {
-            throw new NotImplementedException();
-        }
+        //private string ReplaceExtendedMode(string fileContent, string searchText, string replaceText)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        private string ReplaceRegEx(string fileContent, string searchText, string replaceText, bool caseSensitive, bool regExMultiline)
+        private string ReplaceRegEx(string fileContent, string searchText, string replaceText, bool caseSensitive, bool regExMultiline, ResultInfo resultInfo)
         {
             string workingString = fileContent;
             if (regExMultiline && caseSensitive)
                 workingString = Regex.Replace(fileContent, searchText, replaceText, RegexOptions.Multiline);
+                
 
             else if (regExMultiline && !caseSensitive)
                 workingString = Regex.Replace(fileContent, searchText, replaceText, RegexOptions.Multiline & RegexOptions.IgnoreCase);
@@ -132,7 +129,7 @@ namespace MultiTool.Moldels
         /// <param name="replaceText"></param>
         /// <param name="caseSensitive"></param>
         /// <returns></returns>
-        private string ReplaceAboslute(string fileContent, string searchText, string replaceText, bool caseSensitive)
+        private string ReplaceAboslute(string fileContent, string searchText, string replaceText, bool caseSensitive, ResultInfo resultInfo)
         {
             string workingString = fileContent;
             if (!caseSensitive)

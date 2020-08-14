@@ -196,10 +196,16 @@ namespace MultiTool.ViewModels
             SearchAndReplace SR = new SearchAndReplace(srRegEx, srFileContext, srFileName,
                srFolderName, srCaseSensitive, srReMultiline);
 
+            List<ResultInfo> resultInfos = new List<ResultInfo>();
+
             foreach (string filePath in _FilesList1)
             {
-                SR.Search(filePath, searchText);
+                ResultInfo resultInfo = new ResultInfo(filePath); 
+                SR.Search(filePath, searchText, resultInfo);
+                resultInfos.Add(resultInfo);
             }
+            
+
 
         }
 
@@ -209,9 +215,12 @@ namespace MultiTool.ViewModels
             SearchAndReplace SR = new SearchAndReplace(srRegEx, srFileContext, srFileName,
                 srFolderName, srCaseSensitive, srReMultiline);
 
+            List<ResultInfo> resultInfos = new List<ResultInfo>();
             foreach (string filePath in _FilesList1)
             {
-                SR.Replace(filePath, searchText, replaceText);
+                ResultInfo resultInfo = new ResultInfo(filePath);
+                SR.Replace(filePath, searchText, replaceText, resultInfo);
+                resultInfos.Add(resultInfo);
             }
 
         }

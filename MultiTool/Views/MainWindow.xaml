@@ -59,20 +59,11 @@
                                 <CheckBox Content="Case sensitive" Name="CaseSensitive_cbox"/>
                             </StackPanel>               
                         </StackPanel>
-
                     </GroupBox>
-
-
-
                 </Grid>
-
-
-
-
             </TabItem>
             <TabItem Header="Convert" x:Name="Convert" />
             <TabItem Header="Misc" x:Name="Misc" />
-
         </TabControl>
         <!--#endregion Menu Tab control  -->
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -176,8 +175,8 @@ namespace MultiTool
 
             //MainWindow_VM.Search(searchText, replaceText, srRegEx, srFileContext, srFileName, srFolderName, srCaseSensitive, srReMultiline);
             string data = AppDomain.CurrentDomain.BaseDirectory;
-            data = Environment.CurrentDirectory;
-            MessageBox.Show(data);
+            //data = Environment.CurrentDirectory;
+            //MessageBox.Show(data);
 
 
         }

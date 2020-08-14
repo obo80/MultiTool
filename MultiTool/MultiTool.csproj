@@ -64,6 +64,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Moldels\SearchAndReplace.cs" />
+    <Compile Include="ViewModels\LogSave.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ResultInfo.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
