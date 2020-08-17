@@ -43,20 +43,21 @@
                     </GroupBox>
                     <GroupBox Grid.Column="1" Header="Search and Replace options:">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <StackPanel Orientation="Vertical" Margin="4"  HorizontalAlignment="Center" VerticalAlignment="Top">
-                                <RadioButton Content="Absolute" Name="SR_aboslute_rbox" IsThreeState="False" IsChecked="True"/>
-                                <RadioButton Content="Reegular Expression" Name="SR_RegEx_rbox" IsThreeState="False"/>
-                                <CheckBox Content="Preview" x:Name="SR_Preview_cbox" Click="SR_Preview_cbox_Click"/>
-
-                            </StackPanel>                    
                             <StackPanel Orientation="Vertical" Margin="4" HorizontalAlignment="Center" VerticalAlignment="Top">
                                 <RadioButton Content="File content" Name="SR_FileContent_rbox" IsThreeState="False" IsChecked="True"/>
-                                <RadioButton Content="File names" Name="SR_FileNames_rbox" IsThreeState="False" IsEnabled="False"/>
-                                <RadioButton Content="Folder names" Name="SR_FolderNames_rbox" IsThreeState="False" IsEnabled="False"/>
-                             </StackPanel>
+                                <RadioButton Content="File names" Name="SR_FileNames_rbox" IsThreeState="False" />
+                                <RadioButton Content="Folder names" Name="SR_FolderNames_rbox" IsThreeState="False"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical" Margin="4"  HorizontalAlignment="Center" VerticalAlignment="Top">
+                                <RadioButton Content="Absolute" Name="SR_aboslute_rbox" IsThreeState="False" IsChecked="True"/>
+                                <RadioButton Content="Reegular Expression" Name="SR_RegEx_rbox" IsThreeState="False" IsEnabled="{Binding ElementName=SR_FileContent_rbox, Path=IsChecked}"/>
+                                <CheckBox Content="Preview" x:Name="SR_Preview_cbox" Click="SR_Preview_cbox_Click" IsEnabled="{Binding ElementName=SR_FileContent_rbox, Path=IsChecked}"/>
+
+                            </StackPanel>                    
+
                             <StackPanel Orientation="Vertical" Margin="4" HorizontalAlignment="Center" VerticalAlignment="Top">
-                                <CheckBox Content="RE multiline" Name="SR_RegExMultiline_cbox"/>
-                                <CheckBox Content="Case sensitive" Name="CaseSensitive_cbox"/>
+                                <CheckBox Content="RE multiline" Name="SR_RegExMultiline_cbox" IsEnabled="{Binding ElementName=SR_FileContent_rbox, Path=IsChecked}"/>
+                                <CheckBox Content="Case sensitive" Name="CaseSensitive_cbox" IsEnabled="{Binding ElementName=SR_FileContent_rbox, Path=IsChecked}"/>
                             </StackPanel>               
                         </StackPanel>
                     </GroupBox>

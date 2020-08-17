@@ -5,7 +5,7 @@
     <Style x:Key="ListViewStyle1" TargetType="ListView">
         <Setter Property="AllowDrop" Value="True"/>
         <Setter Property="Background" Value="GhostWhite"/>
-        <Setter Property="Foreground" Value="DarkGray"/>
+        <Setter Property="Foreground" Value="DarkSlateBlue"/>
         <Setter Property="FontSize" Value="11"/>
         <Setter Property="Margin" Value="3"/>
         <Setter Property="Padding" Value="1"/>
@@ -20,7 +20,7 @@
     </Style>
             
 
-            <Style x:Key="ToolbarPanelStyle1" TargetType="ToolBarPanel">
+        <Style x:Key="ToolbarPanelStyle1" TargetType="ToolBarPanel">
         <Setter Property="Background" Value="GhostWhite"/>
         <Setter Property="Margin" Value="3"/>
         <Setter Property="Orientation" Value="Horizontal"/>
